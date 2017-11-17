@@ -47,10 +47,10 @@ public class Controller {
         file = fileHandler.saveFile(passbook.getSavePath());
       } else {
         file = fileHandler.saveFile();
-        passbook.setSavePath(file.getAbsolutePath());
       }
       if (file != null) {
         try {
+          passbook.setSavePath(file.getAbsolutePath());
           fileHandler.writeXmlFile(file, passbookXml.toXml(passbook));
           showSuccess("Gespeichert!");
         } catch (Exception e) {
@@ -217,8 +217,7 @@ public class Controller {
     try {
       result = Double.valueOf(stringToParse);
     } catch (Exception e) {
-      showError(
-          "Kosten sollten als Ziffer angegeben werden.\nKommerstellen folgen nach einem . nicht , !");
+      showError("Kosten sollten als Ziffer angegeben werden.\nKommerstellen folgen nach einem . nicht , !");
       return null;
     }
     clearStatus();

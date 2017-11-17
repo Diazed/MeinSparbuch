@@ -23,28 +23,28 @@
    <children>
       <Pane prefHeight="550.0" prefWidth="380.0">
          <children>
-            <Label fx:id="welcomeLbl" layoutX="12.0" layoutY="194.0" prefHeight="162.0" prefWidth="357.0" text="Willkommen bei Mein Sparbuch! Um anzufangen erstellen Sie einfach ein neues Sparbuch oder öffnen Sie ein bereits vorhandenes" wrapText="true">
+            <Label fx:id="welcomeLbl" layoutX="12.0" layoutY="194.0" prefHeight="162.0" prefWidth="357.0" text="Willkommen bei Mein Sparbuch! Um anzufangen erstellen Sie einfach ein neues Sparbuch oder öffnen Sie ein bereits vorhandenes" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="Arial" size="13.0" />
+                  <Font name="Arial" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="statusLabel" alignment="CENTER" layoutX="23.0" layoutY="73.0" prefHeight="74.0" prefWidth="357.0" text="Error" textAlignment="CENTER" textFill="RED" visible="false">
+            <Label fx:id="statusLabel" alignment="CENTER" layoutX="23.0" layoutY="80.0" prefHeight="67.0" prefWidth="357.0" text="Error" textAlignment="CENTER" textFill="RED" visible="false">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <Label alignment="CENTER" layoutX="11.0" layoutY="14.0" prefHeight="21.0" prefWidth="380.0" text="Mein Sparbuch" textAlignment="CENTER">
                <font>
-                  <Font name="Arial" size="18.0" />
+                  <Font name="Leelawadee" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="23.0" layoutY="42.0" mnemonicParsing="false" onAction="#openPassbook" text="Sparbuch öffnen" />
-            <Button layoutX="134.0" layoutY="42.0" mnemonicParsing="false" onAction="#savePassbook" prefHeight="25.0" prefWidth="134.0" text="Sparbuch speichern" />
-            <Button layoutX="277.0" layoutY="42.0" mnemonicParsing="false" onAction="#showNewPassbookMask" text="Neues Sparbuch" />
-            <Separator layoutX="23.0" layoutY="29.0" prefHeight="13.0" prefWidth="357.0" />
+            <Button layoutX="23.0" layoutY="50.0" mnemonicParsing="false" onAction="#openPassbook" prefHeight="17.0" prefWidth="104.0" text="Öffnen" textAlignment="CENTER" />
+            <Button layoutX="136.0" layoutY="50.0" mnemonicParsing="false" onAction="#savePassbook" prefHeight="25.0" prefWidth="132.0" text="Speichern" textAlignment="CENTER" />
+            <Button layoutX="277.0" layoutY="50.0" mnemonicParsing="false" onAction="#showNewPassbookMask" prefHeight="17.0" prefWidth="103.0" text="Neu" textAlignment="CENTER" />
+            <Separator layoutX="22.0" layoutY="42.0" prefHeight="6.0" prefWidth="357.0" />
             <Pane fx:id="passbookPane" layoutY="133.0" prefHeight="414.0" prefWidth="380.0" visible="false" GridPane.columnIndex="1">
                <children>
-                  <TextField fx:id="savings" alignment="TOP_LEFT" editable="false" layoutX="318.0" layoutY="321.0" prefHeight="25.0" prefWidth="63.0" />
+                  <TextField fx:id="savings" alignment="TOP_LEFT" disable="true" editable="false" layoutX="318.0" layoutY="321.0" prefHeight="25.0" prefWidth="63.0" />
                   <Label layoutX="148.0" layoutY="325.0" prefHeight="17.0" prefWidth="163.0" text="Am Ende des Monats bleiben:" />
                   <TableView fx:id="table" editable="true" layoutX="24.0" layoutY="72.0" prefHeight="244.0" prefWidth="357.0">
                      <columns>
@@ -53,11 +53,14 @@
                      </columns>
                   </TableView>
                   <Button layoutX="24.0" layoutY="382.0" mnemonicParsing="false" onAction="#addNewCost" prefHeight="21.0" prefWidth="357.0" text="Ausgabe hinzufügen" />
-                  <Label layoutX="24.0" layoutY="55.0" prefHeight="17.0" prefWidth="200.0" text="Sparbuch:" />
+                  <Label layoutX="24.0" layoutY="49.0" prefHeight="17.0" prefWidth="200.0" text="Sparbuch:">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
                   <TextField fx:id="costNameInput" layoutX="22.0" layoutY="353.0" prefHeight="25.0" prefWidth="289.0" promptText="Ausgabenbezeichnung" />
                   <TextField fx:id="costAmountInput" layoutX="318.0" layoutY="353.0" prefHeight="25.0" prefWidth="63.0" promptText="Kosten" />
-                  <TextField fx:id="editIncomeInput" layoutX="25.0" layoutY="30.0" prefHeight="25.0" prefWidth="261.0" promptText="Monatliches Einkommen" />
-                  <Button fx:id="editIncomeBtn" layoutX="289.0" layoutY="30.0" mnemonicParsing="false" onAction="#editIncome" prefHeight="25.0" prefWidth="92.0" text="editieren" />
+                  <TextField fx:id="editIncomeInput" layoutX="25.0" layoutY="24.0" prefHeight="25.0" prefWidth="261.0" promptText="Monatliches Einkommen" />
+                  <Button fx:id="editIncomeBtn" layoutX="289.0" layoutY="24.0" mnemonicParsing="false" onAction="#editIncome" prefHeight="25.0" prefWidth="92.0" text="editieren" textAlignment="CENTER" />
                </children>
             </Pane>
             <Pane fx:id="passbookCreationPane" layoutX="10.0" layoutY="143.0" prefHeight="414.0" prefWidth="380.0" visible="false">

@@ -1,11 +1,17 @@
 package main;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -17,45 +23,61 @@ import javafx.scene.paint.Color;
 
 public class Controller {
 
+  public Button openBtn;
+  public Button newBtn;
+  public MenuItem saveAtBtn;
+  public MenuItem saveBtn;
   public Label statusLabel;
+  public Label openLbl;
+  public Label newLbl;
   public TextField costNameInput;
   public TextField costAmountInput;
   public TextField editIncomeInput;
   public TextField savings;
+  public TextField income;
   public Pane passbookPane;
   public Pane passbookCreationPane;
   public TextField monthlyIncomeInput;
   public Label welcomeLbl;
   public TableColumn costNameCol;
   public TableColumn costAmountCol;
-  public TableView table;
+  public TableView<Cost> table;
   private Passbook passbook;
   private PassbookXml passbookXml = new PassbookXml();
   private FileHandler fileHandler = new FileHandler();
-
-
-  public Controller() {
-
-  }
 
   public void savePassbook(ActionEvent event) {
     if (passbook == null) {
       showError("Kein Sparbuch zum speichern vorhanden.");
     } else {
-      File file;
+
       if (passbook.getSavePath() != null && !passbook.getSavePath().equals("")) {
-        file = fileHandler.saveFile(passbook.getSavePath());
-      } else {
-        file = fileHandler.saveFile();
-      }
-      if (file != null) {
+        File file = fileHandler.saveFile(passbook.getSavePath());
         try {
           passbook.setSavePath(file.getAbsolutePath());
           fileHandler.writeXmlFile(file, passbookXml.toXml(passbook));
           showSuccess("Gespeichert!");
+          saveAtBtn.setDisable(false);
         } catch (Exception e) {
-          showError("Es ist ein Fehler aufgetreten.");
+          showError("Nicht gespeichert!");
         }
+      } else {
+        showError("Kein Speicherort hinterlegt. Nutzen sie die \"Speichern unter\" funktion.");
+      }
+    }
+  }
+
+  public void savePassbookAt(ActionEvent event) {
+    if (passbook == null) {
+      showError("Kein Sparbuch zum speichern vorhanden.");
+    } else {
+      File file = fileHandler.saveFile();
+      try {
+        passbook.setSavePath(file.getAbsolutePath());
+        fileHandler.writeXmlFile(file, passbookXml.toXml(passbook));
+        showSuccess("Gespeichert!");
+      } catch (Exception e) {
+        showError("Nicht gespeichert!");
       }
     }
   }
@@ -65,21 +87,32 @@ public class Controller {
     if (file != null) {
       String xml = fileHandler.readFile(file);
       passbook = passbookXml.toPassbook(xml);
+      setIncome(passbook.getMonthlyIncome());
+      if (passbook.getSavePath() != null && !Objects.equals(passbook.getSavePath(), "")){
+        saveBtn.setDisable(false);
+      } else {
+        saveBtn.setDisable(true);
+      }
+
+      saveAtBtn.setDisable(false);
       showPassbookList();
       refreshSavings(passbook);
-    } else {
-      showError("Es wurde keine Datei zum öffnen Gewählt");
+      clearStatus();
     }
   }
 
 
   public void createNewPassbook(ActionEvent event) {
     if (isValid(monthlyIncomeInput.getText())) {
-      Double income = stringToDouble(monthlyIncomeInput.getText());
-      if (income != null) {
+      Double incomeValue = stringToDouble(monthlyIncomeInput.getText());
+      if (incomeValue != null) {
         passbook = new Passbook();
-        passbook.setMonthlyIncome(income);
+        passbook.setMonthlyIncome(incomeValue);
         monthlyIncomeInput.setText("");
+        saveAtBtn.setDisable(false);
+        saveBtn.setDisable(true);
+        setIncome(incomeValue);
+        refreshSavings(passbook);
         clearStatus();
         showPassbookList();
       }
@@ -91,6 +124,11 @@ public class Controller {
       passbookPane.setVisible(false);
       passbookCreationPane.setVisible(false);
       welcomeLbl.setVisible(true);
+      newBtn.setVisible(true);
+      openBtn.setVisible(true);
+      newLbl.setVisible(true);
+      openLbl.setVisible(true);
+      clearStatus();
     } else {
       showPassbookList();
     }
@@ -111,7 +149,34 @@ public class Controller {
     table.setItems(data);
   }
 
-  public EventHandler<CellEditEvent<Cost, String>> getCostAmmountEventHandler(){
+  private void saveCost(Cost editedCost){
+    for (Cost cost : passbook.getCosts()) {
+      if (cost.getId().equals(editedCost.getId())) {
+        cost = editedCost;
+      }
+    }
+    refreshSavings(passbook);
+  }
+
+  private boolean deleteCost(Cost costToDelete){
+
+    if (Objects.equals(costToDelete.getName(), "")){
+      List<Cost> list = passbook.getCosts();
+      for (Iterator<Cost> iterator = list.iterator(); iterator.hasNext();) {
+        Cost cost = iterator.next();
+        if (cost.getId().equals(costToDelete.getId())) {
+          iterator.remove();
+        }
+      }
+      refreshSavings(passbook);
+      fillPassbookList();
+      return true;
+    }
+
+    return false;
+  }
+
+  public EventHandler<CellEditEvent<Cost, String>> getCostAmmountEventHandler() {
     return new EventHandler<CellEditEvent<Cost, String>>() {
       @Override
       public void handle(CellEditEvent<Cost, String> t) {
@@ -119,25 +184,20 @@ public class Controller {
             t.getTablePosition().getRow())
         );
 
-        try{
-          Double newCost = Double.valueOf(t.getNewValue());
-
-          editedCost.setAmount(t.getNewValue());
-          for (Cost cost : passbook.getCosts()) {
-            if (cost.getId().equals(editedCost.getId())) {
-              cost = editedCost;
-            }
-          }
-          refreshSavings(passbook);
+        try {
+          String newCost = "" + Double.valueOf(t.getNewValue());
+          editedCost.setAmount(newCost);
+          saveCost(editedCost);
           showSuccess("Kosten editiert.");
-        } catch (Exception e){
+        } catch (Exception e) {
           showError("Ungültige Eingabe.\nDer Wert wurde nicht editiert.");
+          fillPassbookList();
         }
       }
     };
   }
 
-  public EventHandler<CellEditEvent<Cost, String>> getCostNameEventHandler(){
+  public EventHandler<CellEditEvent<Cost, String>> getCostNameEventHandler() {
     return new EventHandler<CellEditEvent<Cost, String>>() {
       @Override
       public void handle(CellEditEvent<Cost, String> t) {
@@ -146,14 +206,19 @@ public class Controller {
         );
 
         editedCost.setName(t.getNewValue());
-        for (Cost cost : passbook.getCosts()) {
-          if (cost.getId().equals(editedCost.getId())) {
-            cost = editedCost;
-          }
+        if (deleteCost(editedCost)) {
+          showWarn("Eintrag gelöscht!");
+          return;
         }
+        saveCost(editedCost);
         showSuccess("Name editiert.");
       }
     };
+  }
+
+  private void setIncome(Double value){
+    DecimalFormat df = new DecimalFormat("#.##");
+    income.setText(df.format(value));
   }
 
   private void showPassbookList() {
@@ -161,11 +226,15 @@ public class Controller {
     passbookPane.setVisible(true);
     passbookCreationPane.setVisible(false);
     welcomeLbl.setVisible(false);
+    newBtn.setVisible(false);
+    newLbl.setVisible(false);
+    openBtn.setVisible(false);
+    openLbl.setVisible(false);
     costAmountCol.setOnEditCommit(getCostAmmountEventHandler());
     costNameCol.setOnEditCommit(getCostNameEventHandler());
   }
 
-  public void editIncome(ActionEvent event){
+  public void editIncome(ActionEvent event) {
     String newValue = editIncomeInput.getText();
     passbook.setMonthlyIncome(stringToDouble(newValue));
     editIncomeInput.setText("");
@@ -175,7 +244,12 @@ public class Controller {
   public void showNewPassbookMask(ActionEvent event) {
     welcomeLbl.setVisible(false);
     passbookPane.setVisible(false);
+    newBtn.setVisible(false);
+    openBtn.setVisible(false);
+    openLbl.setVisible(false);
+    newLbl.setVisible(false);
     passbookCreationPane.setVisible(true);
+    clearStatus();
   }
 
   public void addNewCost(ActionEvent event) {
@@ -207,8 +281,10 @@ public class Controller {
     for (Cost cost : passbook.getCosts()) {
       totalCost += Double.valueOf(cost.getAmount());
     }
-    if (income != null)
-      savings.setText("" + (income - totalCost) + "€");
+    if (income != null) {
+      DecimalFormat df = new DecimalFormat("#.##");
+      savings.setText(df.format(income - totalCost));
+    }
 
   }
 
@@ -217,7 +293,8 @@ public class Controller {
     try {
       result = Double.valueOf(stringToParse);
     } catch (Exception e) {
-      showError("Kosten sollten als Ziffer angegeben werden.\nKommerstellen folgen nach einem . nicht , !");
+      showError(
+          "Kosten sollten als Ziffer angegeben werden.\nKommerstellen folgen nach einem . nicht , !");
       return null;
     }
     clearStatus();
@@ -236,6 +313,12 @@ public class Controller {
   private void showError(String text) {
     statusLabel.setText(text);
     statusLabel.setTextFill(Color.RED);
+    statusLabel.setVisible(true);
+  }
+
+  private void showWarn(String text) {
+    statusLabel.setText(text);
+    statusLabel.setTextFill(Color.GOLD);
     statusLabel.setVisible(true);
   }
 

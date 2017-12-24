@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-public class PassbookXml {
+public class PassbookXmlConverter {
 
   public String toXml(Passbook passbook){
     String xmlString = "";

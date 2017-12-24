@@ -42,81 +42,26 @@ public class Controller {
   public TableColumn costNameCol;
   public TableColumn costAmountCol;
   public TableView<Cost> table;
+  PassbookService passbookService = new PassbookService(this);
   private Passbook passbook;
-  private PassbookXml passbookXml = new PassbookXml();
-  private FileHandler fileHandler = new FileHandler();
 
   public void savePassbook(ActionEvent event) {
-    if (passbook == null) {
-      showError("Kein Sparbuch zum speichern vorhanden.");
-    } else {
-
-      if (passbook.getSavePath() != null && !passbook.getSavePath().equals("")) {
-        File file = fileHandler.saveFile(passbook.getSavePath());
-        try {
-          passbook.setSavePath(file.getAbsolutePath());
-          fileHandler.writeXmlFile(file, passbookXml.toXml(passbook));
-          showSuccess("Gespeichert!");
-          saveAtBtn.setDisable(false);
-        } catch (Exception e) {
-          showError("Nicht gespeichert!");
-        }
-      } else {
-        showError("Kein Speicherort hinterlegt. Nutzen sie die \"Speichern unter\" funktion.");
-      }
-    }
+    passbookService.savePassbook(passbook);
   }
 
   public void savePassbookAt(ActionEvent event) {
-    if (passbook == null) {
-      showError("Kein Sparbuch zum speichern vorhanden.");
-    } else {
-      File file = fileHandler.saveFile();
-      try {
-        passbook.setSavePath(file.getAbsolutePath());
-        fileHandler.writeXmlFile(file, passbookXml.toXml(passbook));
-        showSuccess("Gespeichert!");
-      } catch (Exception e) {
-        showError("Nicht gespeichert!");
-      }
-    }
+    passbookService.savePassbookAt(passbook);
   }
 
   public void openPassbook(ActionEvent event) {
-    File file = fileHandler.openFile();
-    if (file != null) {
-      String xml = fileHandler.readFile(file);
-      passbook = passbookXml.toPassbook(xml);
-      setIncome(passbook.getMonthlyIncome());
-      if (passbook.getSavePath() != null && !Objects.equals(passbook.getSavePath(), "")){
-        saveBtn.setDisable(false);
-      } else {
-        saveBtn.setDisable(true);
-      }
-
-      saveAtBtn.setDisable(false);
-      showPassbookList();
-      refreshSavings(passbook);
-      clearStatus();
-    }
+    this.passbook = passbookService.openPassbook();
+    showPassbookList();
+    refreshSavings(passbook);
+    clearStatus();
   }
 
-
   public void createNewPassbook(ActionEvent event) {
-    if (isValid(monthlyIncomeInput.getText())) {
-      Double incomeValue = stringToDouble(monthlyIncomeInput.getText());
-      if (incomeValue != null) {
-        passbook = new Passbook();
-        passbook.setMonthlyIncome(incomeValue);
-        monthlyIncomeInput.setText("");
-        saveAtBtn.setDisable(false);
-        saveBtn.setDisable(true);
-        setIncome(incomeValue);
-        refreshSavings(passbook);
-        clearStatus();
-        showPassbookList();
-      }
-    }
+    this.passbook = passbookService.createNewPassbook();
   }
 
   public void abort(ActionEvent event) {
@@ -216,12 +161,12 @@ public class Controller {
     };
   }
 
-  private void setIncome(Double value){
+  public void setIncome(Double value){
     DecimalFormat df = new DecimalFormat("#.##");
     income.setText(df.format(value));
   }
 
-  private void showPassbookList() {
+  public void showPassbookList() {
     fillPassbookList();
     passbookPane.setVisible(true);
     passbookCreationPane.setVisible(false);
@@ -275,7 +220,7 @@ public class Controller {
     }
   }
 
-  private void refreshSavings(Passbook passbook) {
+  public void refreshSavings(Passbook passbook) {
     Double totalCost = 0d;
     Double income = passbook.getMonthlyIncome();
     for (Cost cost : passbook.getCosts()) {
@@ -285,10 +230,9 @@ public class Controller {
       DecimalFormat df = new DecimalFormat("#.##");
       savings.setText(df.format(income - totalCost));
     }
-
   }
 
-  private Double stringToDouble(String stringToParse) {
+  public Double stringToDouble(String stringToParse) {
     Double result = 0d;
     try {
       result = Double.valueOf(stringToParse);
@@ -301,7 +245,7 @@ public class Controller {
     return result;
   }
 
-  private boolean isValid(String text) {
+  public boolean isValid(String text) {
     if (text.isEmpty()) {
       showError("Bitte füllen Sie alle Felder aus.");
       return false;
@@ -310,25 +254,25 @@ public class Controller {
     }
   }
 
-  private void showError(String text) {
+  public void showError(String text) {
     statusLabel.setText(text);
     statusLabel.setTextFill(Color.RED);
     statusLabel.setVisible(true);
   }
 
-  private void showWarn(String text) {
+  public void showWarn(String text) {
     statusLabel.setText(text);
     statusLabel.setTextFill(Color.GOLD);
     statusLabel.setVisible(true);
   }
 
-  private void showSuccess(String text) {
+  public void showSuccess(String text) {
     statusLabel.setText(text);
     statusLabel.setTextFill(Color.GREEN);
     statusLabel.setVisible(true);
   }
 
-  private void clearStatus() {
+  public void clearStatus() {
     statusLabel.setText("");
     statusLabel.setVisible(false);
   }

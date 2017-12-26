@@ -1,23 +1,23 @@
 package main;
 
-import main.windows.menu.Menu;
+import main.model.Passbook;
+import main.windows.mainwindow.MainWindow;
 
 import java.io.File;
-import java.util.Objects;
 
 public class PassbookService {
 
-    private Menu menu;
+    private MainWindow mainWindow;
     private FileHandler fileHandler = new FileHandler();
     private PassbookXmlConverter passbookXmlConverter = new PassbookXmlConverter();
 
-    public PassbookService(Menu menu) {
-        this.menu = menu;
+    public PassbookService(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
     public void savePassbook(Passbook passbook) {
         if (passbook == null) {
-            menu.showError("Kein Sparbuch zum speichern vorhanden.");
+            mainWindow.showError("Kein Sparbuch zum speichern vorhanden.");
         } else {
 
             if (passbook.getSavePath() != null && !passbook.getSavePath().equals("")) {
@@ -25,29 +25,29 @@ public class PassbookService {
                 try {
                     passbook.setSavePath(file.getAbsolutePath());
                     fileHandler.writeXmlFile(file, passbookXmlConverter.toXml(passbook));
-                    menu.showSuccess("Gespeichert!");
-                    menu.saveAtBtn.setDisable(false);
+                    mainWindow.showSuccess("Gespeichert!");
+                    mainWindow.saveAtBtn.setDisable(false);
                 } catch (Exception e) {
-                    menu.showError("Nicht gespeichert!");
+                    mainWindow.showError("Nicht gespeichert!");
                 }
             } else {
-                menu.showError("Kein Speicherort hinterlegt. Nutzen sie die \"Speichern unter\" funktion.");
+                mainWindow.showError("Kein Speicherort hinterlegt. Nutzen sie die \"Speichern unter\" funktion.");
             }
         }
     }
 
     public void savePassbookAt(Passbook passbook) {
         if (passbook == null) {
-            menu.showError("Kein Sparbuch zum speichern vorhanden.");
+            mainWindow.showError("Kein Sparbuch zum speichern vorhanden.");
         } else {
             File file = fileHandler.saveFile();
             try {
                 passbook.setSavePath(file.getAbsolutePath());
                 fileHandler.writeXmlFile(file, passbookXmlConverter.toXml(passbook));
-                menu.showSuccess("Gespeichert!");
-                menu.saveBtn.setDisable(false);
+                mainWindow.showSuccess("Gespeichert!");
+                mainWindow.saveBtn.setDisable(false);
             } catch (Exception e) {
-                menu.showError("Nicht gespeichert!");
+                mainWindow.showError("Nicht gespeichert!");
             }
         }
     }
@@ -61,7 +61,7 @@ public class PassbookService {
 
             return passbook;
         } else {
-            menu.showWarn("Es wurde keine Datei ausgewählt.");
+            mainWindow.showWarn("Es wurde keine Datei ausgewählt.");
         }
         return null;
     }

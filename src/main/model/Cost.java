@@ -1,4 +1,4 @@
-package main;
+package main.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;

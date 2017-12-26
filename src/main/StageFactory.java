@@ -30,6 +30,11 @@ public class StageFactory {
         primaryStage.setScene(new Scene(root, 400, 550));
     }
 
+    public void loadAddCost(){
+        Parent root = getParent("addcost");
+        primaryStage.setScene(new Scene(root, 400, 550));
+    }
+
     private Parent getParent(String resource) {
         try {
             return FXMLLoader.load(getClass().getResource("scenes/" + resource + ".fxml"));

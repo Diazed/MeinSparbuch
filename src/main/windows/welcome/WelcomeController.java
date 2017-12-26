@@ -1,9 +1,8 @@
 package main.windows.welcome;
 
-import javafx.event.ActionEvent;
-import main.windows.menu.Menu;
+import main.windows.mainwindow.MainWindow;
 
-public class WelcomeController extends Menu {
+public class WelcomeController extends MainWindow {
 
 
 }

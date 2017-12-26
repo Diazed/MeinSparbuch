@@ -1,5 +1,7 @@
 package main;
 
+import main.model.Passbook;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;

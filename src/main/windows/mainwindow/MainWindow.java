@@ -1,32 +1,27 @@
-package main.windows.menu;
+package main.windows.mainwindow;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
-import main.Passbook;
 import main.PassbookService;
 import main.StageFactory;
+import main.model.Passbook;
 
 import java.util.Objects;
 
-public class Menu {
+public class MainWindow {
 
     protected static Passbook passbook;
-
-    private PassbookService passbookService = new PassbookService(this);
     protected StageFactory stageFactory = new StageFactory();
+    private PassbookService passbookService = new PassbookService(this);
 
     public Label statusLabel;
     public Button openBtn;
     public Button newBtn;
     public MenuItem saveAtBtn;
     public MenuItem saveBtn;
-
-    public static void setPassbook(Passbook passbook) {
-        Menu.passbook = passbook;
-    }
 
     public void savePassbook(ActionEvent event){
         passbookService.savePassbook(passbook);
@@ -41,7 +36,7 @@ public class Menu {
     }
 
     public void openPassbook(ActionEvent event) {
-        Menu.setPassbook(passbookService.openPassbook());
+        passbook = passbookService.openPassbook();
         stageFactory.loadPassbookList();
         clearStatus();
     }

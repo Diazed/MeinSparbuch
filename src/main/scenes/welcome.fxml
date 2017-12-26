@@ -14,41 +14,38 @@
 
 <GridPane alignment="center" hgap="10" prefHeight="550.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.windows.welcome.WelcomeController">
 
-    <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
-        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-    </rowConstraints>
     <children>
-        <Pane prefHeight="550.0" prefWidth="380.0">
+        <Pane prefHeight="550.0" prefWidth="400.0">
             <children>
                 <Label fx:id="welcomeLbl" layoutX="64.0" layoutY="129.0" prefHeight="29.0" prefWidth="289.0" text="Willkommen bei Mein Sparbuch! " textAlignment="CENTER">
                     <font>
                         <Font name="Arial" size="19.0" />
                     </font>
                 </Label>
-                <Label fx:id="statusLabel" alignment="CENTER" layoutX="23.0" layoutY="68.0" prefHeight="60.0" prefWidth="357.0" text="Error" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true">
+                <Label fx:id="statusLabel" alignment="CENTER" layoutX="23.0" layoutY="68.0" prefHeight="60.0"
+                       prefWidth="357.0" text="Error" textAlignment="CENTER" textFill="RED" visible="false"
+                       wrapText="true">
                     <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="15.0"/>
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="12.0" layoutY="33.0" prefHeight="21.0" prefWidth="380.0" text="Mein Sparbuch" textAlignment="CENTER">
+                <Label alignment="CENTER" layoutX="12.0" layoutY="33.0" prefHeight="21.0" prefWidth="380.0"
+                       text="Mein Sparbuch" textAlignment="CENTER">
                     <font>
-                        <Font name="Leelawadee" size="24.0" />
+                        <Font name="Leelawadee" size="24.0"/>
                     </font>
                 </Label>
-                <Separator layoutX="23.0" layoutY="61.0" prefHeight="6.0" prefWidth="357.0" />
+                <Separator layoutX="23.0" layoutY="61.0" prefHeight="6.0" prefWidth="357.0"/>
                 <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="400.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="Datei">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#createPassbook" text="Neu" />
-                                <MenuItem mnemonicParsing="false" onAction="#openPassbook" text="Öffnen" />
-                                <MenuItem fx:id="saveAtBtn" disable="true" mnemonicParsing="false" onAction="#savePassbookAt" text="Speichern unter" />
-                                <MenuItem fx:id="saveBtn" disable="true" mnemonicParsing="false" onAction="#savePassbook" text="Speichern" />
+                                <MenuItem mnemonicParsing="false" onAction="#createPassbook" text="Neu"/>
+                                <MenuItem mnemonicParsing="false" onAction="#openPassbook" text="Öffnen"/>
+                                <MenuItem fx:id="saveAtBtn" disable="true" mnemonicParsing="false"
+                                          onAction="#savePassbookAt" text="Speichern unter"/>
+                                <MenuItem fx:id="saveBtn" disable="true" mnemonicParsing="false"
+                                          onAction="#savePassbook" text="Speichern"/>
                             </items>
                         </Menu>
                     </menus>

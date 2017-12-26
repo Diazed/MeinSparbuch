@@ -2,10 +2,10 @@ package main.windows.passbookcreation;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
-import main.Passbook;
-import main.windows.menu.Menu;
+import main.model.Passbook;
+import main.windows.mainwindow.MainWindow;
 
-public class PassbookCreationController extends Menu {
+public class PassbookCreationController extends MainWindow {
 
     public TextField monthlyIncomeInput;
 

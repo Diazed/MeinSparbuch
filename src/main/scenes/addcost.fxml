@@ -31,7 +31,7 @@
                      <Font name="Leelawadee" size="24.0" />
                  </font>
              </Label>
-             <Separator layoutX="12.0" layoutY="65.0" prefHeight="6.0" prefWidth="357.0" />
+             <Separator layoutX="9.0" layoutY="56.0" prefHeight="6.0" prefWidth="357.0" />
              <MenuBar layoutX="-10.0" layoutY="2.0" prefHeight="25.0" prefWidth="400.0">
                  <menus>
                      <Menu mnemonicParsing="false" text="Datei">
@@ -45,8 +45,8 @@
                  </menus>
              </MenuBar>
 
-            <Button layoutX="195.0" layoutY="486.0" mnemonicParsing="false" onAction="#addNewCost" prefHeight="50.0" prefWidth="180.0" text="Hinzufügen" />
-            <Button fx:id="abortButton" layoutX="7.0" layoutY="486.0" mnemonicParsing="false" onAction="#abortAddingCost" prefHeight="50.0" prefWidth="180.0" text="Abbrechen" />
+            <Button defaultButton="true" layoutX="195.0" layoutY="486.0" mnemonicParsing="false" onAction="#addNewCost" prefHeight="50.0" prefWidth="180.0" text="Hinzufügen" />
+            <Button fx:id="abortButton" cancelButton="true" layoutX="7.0" layoutY="486.0" mnemonicParsing="false" onAction="#abortAddingCost" prefHeight="50.0" prefWidth="180.0" text="Abbrechen" />
             <TextField fx:id="costIdentifierInput" layoutX="195.0" layoutY="403.0" prefHeight="25.0" prefWidth="180.0" />
             <TextField fx:id="costAmountInput" layoutX="195.0" layoutY="434.0" prefHeight="25.0" prefWidth="180.0" />
             <Label layoutX="72.0" layoutY="136.0" text="Neue Ausgabe hinzufügen">

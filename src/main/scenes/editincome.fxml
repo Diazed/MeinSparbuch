@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefHeight="550.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.windows.passbookcreation.PassbookCreationController">
+<GridPane alignment="center" hgap="10" prefHeight="550.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.windows.editincome.EditIncome">
 
     <children>
         <Pane prefHeight="550.0" prefWidth="400.0">
@@ -31,20 +31,19 @@
                 <Separator layoutX="23.0" layoutY="61.0" prefHeight="6.0" prefWidth="357.0" />
                 <Pane fx:id="passbookCreationPane" layoutX="10.0" layoutY="143.0" prefHeight="414.0" prefWidth="380.0">
                     <children>
-                        <Button defaultButton="true" layoutX="194.0" layoutY="350.0" mnemonicParsing="false" onAction="#createNewPassbook" prefHeight="50.0" prefWidth="175.0" text="Neues Sparbuch erstellen" />
-                        <TextField fx:id="monthlyIncomeInput" layoutX="194.0" layoutY="318.0" prefHeight="25.0" prefWidth="175.0" promptText="Monatliches Einkommen" />
-                        <Label layoutX="12.0" layoutY="14.0" prefHeight="251.0" prefWidth="357.0" text="Alle  Angaben werden ausschließlich bei Ihnen lokal auf dem Computer gespeichert. Sie können Kommazahlen verwenden. Bei Kommazahlen muss ein (.) verwendet werden kein (,) !!!" wrapText="true" />
+                        <Button defaultButton="true" layoutX="194.0" layoutY="350.0" mnemonicParsing="false" onAction="#editIncome" prefHeight="50.0" prefWidth="175.0" text="Sparbuch editieren" />
+                        <TextField fx:id="editIncomeInput" layoutX="194.0" layoutY="309.0" prefHeight="25.0" prefWidth="175.0" promptText="Monatliches Einkommen" />
                         <Button cancelButton="true" layoutX="12.0" layoutY="350.0" mnemonicParsing="false" onAction="#abort" prefHeight="50.0" prefWidth="175.0" text="Abbrechen" />
-                      <Label layoutX="95.0" layoutY="-13.0" text="Neues Sparbuch anlegen">
-                          <font>
-                              <Font size="18.0" />
-                          </font>
-                      </Label>
-                  <Label layoutX="14.0" layoutY="322.0" text="Monatliches Einkommen: ">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                        <Label layoutX="112.0" layoutY="-13.0" text="Sparbuch editieren">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="300.0" prefHeight="42.0" prefWidth="175.0" text="Neues Monatliches Einkommen: " wrapText="true">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
                     </children>
                 </Pane>
                 <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="400.0">
@@ -62,10 +61,10 @@
             </children>
         </Pane>
     </children>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
 </GridPane>

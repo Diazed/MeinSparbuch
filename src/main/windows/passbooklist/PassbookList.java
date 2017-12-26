@@ -5,11 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.paint.Color;
 import main.model.Cost;
 import main.model.Passbook;
 import main.windows.mainwindow.MainWindow;
@@ -21,12 +22,11 @@ import java.util.Objects;
 
 public class PassbookList extends MainWindow {
 
-    public TextField income;
-    public TextField savings;
+    public Label income;
+    public Label savings;
     public TableColumn costNameCol;
     public TableColumn costAmountCol;
     public TableView<Cost> table;
-    public TextField editIncomeInput;
 
     @FXML
     void initialize() {
@@ -39,7 +39,11 @@ public class PassbookList extends MainWindow {
 
     public void setIncome() {
         DecimalFormat df = new DecimalFormat("#.##");
-        income.setText(df.format(passbook.getMonthlyIncome()));
+        income.setText(df.format(passbook.getMonthlyIncome()) + "€");
+    }
+
+    public void editPassbook(ActionEvent event){
+        stageFactory.loadEditPassbook();
     }
 
     public void refreshSavings(Passbook passbook) {
@@ -51,7 +55,13 @@ public class PassbookList extends MainWindow {
         }
         if (income != null) {
             DecimalFormat df = new DecimalFormat("#.##");
-            savings.setText(df.format(income - totalCost));
+            Double savedMoney = income - totalCost;
+            if (savedMoney < 0){
+                savings.setTextFill(Color.RED);
+            } else {
+                savings.setTextFill(Color.GREEN);
+            }
+            savings.setText(df.format(income - totalCost) + "€");
         }
     }
 
@@ -138,12 +148,5 @@ public class PassbookList extends MainWindow {
 
     public void openNewCostStage(ActionEvent event) {
         stageFactory.loadAddCost();
-    }
-
-    public void editIncome(ActionEvent event) {
-        String newValue = editIncomeInput.getText();
-        passbook.setMonthlyIncome(stringToDouble(newValue));
-        editIncomeInput.setText("");
-        refreshSavings(passbook);
     }
 }

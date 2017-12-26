@@ -29,12 +29,13 @@ public class AddCost extends MainWindow {
                     passbook.getCosts().add(cost);
                     costAmountInput.setText("");
                     costIdentifierInput.setText("");
+                    stageFactory.loadPassbookList();
                 } else {
                     showError("Kein Sparbuch geöffnet!\nErstellen Sie ein neues oder önnen sie ein vorhandenes");
                 }
             }
         }
-        stageFactory.loadPassbookList();
+
     }
 
 }

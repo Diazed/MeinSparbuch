@@ -5,16 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
-public class Main extends Application {
+public class MeinSparbuch extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+
+
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("Icon.png")));
         primaryStage.setTitle("Mein Sparbuch");
-        primaryStage.setScene(new Scene(root, 400, 550));
+        primaryStage.setResizable(false);
+        StageFactory.setPrimaryStage(primaryStage);
+        StageFactory stageFactory = new StageFactory();
+        stageFactory.loadWelcome();
         primaryStage.show();
     }
 

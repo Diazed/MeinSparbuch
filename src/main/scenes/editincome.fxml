@@ -13,35 +13,50 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefHeight="550.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.windows.editincome.EditIncome">
+<GridPane alignment="center" hgap="10" prefHeight="550.0" prefWidth="400.0" vgap="10"
+          xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="main.windows.editincome.EditIncome">
 
     <children>
         <Pane prefHeight="550.0" prefWidth="400.0">
             <children>
-                <Label fx:id="statusLabel" alignment="CENTER" layoutX="23.0" layoutY="68.0" prefHeight="60.0" prefWidth="357.0" text="Error" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true">
+                <Label fx:id="statusLabel" alignment="CENTER" layoutX="23.0" layoutY="68.0" prefHeight="60.0"
+                       prefWidth="357.0" text="Error" textAlignment="CENTER" textFill="RED" visible="false"
+                       wrapText="true">
                     <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="15.0"/>
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="12.0" layoutY="33.0" prefHeight="21.0" prefWidth="380.0" text="Mein Sparbuch" textAlignment="CENTER">
+                <Label alignment="CENTER" layoutX="12.0" layoutY="33.0" prefHeight="21.0" prefWidth="380.0"
+                       text="Mein Sparbuch" textAlignment="CENTER">
                     <font>
-                        <Font name="Leelawadee" size="24.0" />
+                        <Font name="Leelawadee" size="24.0"/>
                     </font>
                 </Label>
-                <Separator layoutX="23.0" layoutY="61.0" prefHeight="6.0" prefWidth="357.0" />
+                <Separator layoutX="23.0" layoutY="61.0" prefHeight="6.0" prefWidth="357.0"/>
                 <Pane fx:id="passbookCreationPane" layoutX="10.0" layoutY="143.0" prefHeight="414.0" prefWidth="380.0">
                     <children>
-                        <Button defaultButton="true" layoutX="194.0" layoutY="350.0" mnemonicParsing="false" onAction="#editIncome" prefHeight="50.0" prefWidth="175.0" text="Sparbuch editieren" />
-                        <TextField fx:id="editIncomeInput" layoutX="194.0" layoutY="309.0" prefHeight="25.0" prefWidth="175.0" promptText="Monatliches Einkommen" />
-                        <Button cancelButton="true" layoutX="12.0" layoutY="350.0" mnemonicParsing="false" onAction="#abort" prefHeight="50.0" prefWidth="175.0" text="Abbrechen" />
+                        <Button defaultButton="true" layoutX="194.0" layoutY="350.0" mnemonicParsing="false"
+                                onAction="#editIncome" prefHeight="50.0" prefWidth="175.0" text="Sparbuch editieren"/>
+                        <TextField fx:id="editIncomeInput" layoutX="194.0" layoutY="309.0" prefHeight="25.0"
+                                   prefWidth="161.0" promptText="Monatliches Einkommen"/>
+                        <Button cancelButton="true" layoutX="12.0" layoutY="350.0" mnemonicParsing="false"
+                                onAction="#abort" prefHeight="50.0" prefWidth="175.0" text="Abbrechen"/>
                         <Label layoutX="112.0" layoutY="-13.0" text="Sparbuch editieren">
                             <font>
-                                <Font size="18.0" />
+                                <Font size="18.0"/>
                             </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="300.0" prefHeight="42.0" prefWidth="175.0" text="Neues Monatliches Einkommen: " wrapText="true">
+                        <Label layoutX="14.0" layoutY="300.0" prefHeight="42.0" prefWidth="175.0"
+                               text="Neues Monatliches Einkommen: " wrapText="true">
                             <font>
-                                <Font size="14.0" />
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                        <Label layoutX="358.0" layoutY="311.0" prefHeight="20.0" prefWidth="0.0" text="€"
+                               wrapText="true">
+                            <font>
+                                <Font size="14.0"/>
                             </font>
                         </Label>
                     </children>
@@ -50,10 +65,17 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="Datei">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#createPassbook" text="Neu" />
-                                <MenuItem mnemonicParsing="false" onAction="#openPassbook" text="Öffnen" />
-                                <MenuItem fx:id="saveAtBtn" disable="true" mnemonicParsing="false" onAction="#savePassbookAt" text="Speichern unter" />
-                                <MenuItem fx:id="saveBtn" disable="true" mnemonicParsing="false" onAction="#savePassbook" text="Speichern" />
+                                <MenuItem mnemonicParsing="false" onAction="#createPassbook" text="Neu"/>
+                                <MenuItem mnemonicParsing="false" onAction="#openPassbook" text="Öffnen"/>
+                                <MenuItem fx:id="saveAtBtn" disable="true" mnemonicParsing="false"
+                                          onAction="#savePassbookAt" text="Speichern unter"/>
+                                <MenuItem fx:id="saveBtn" disable="true" mnemonicParsing="false"
+                                          onAction="#savePassbook" text="Speichern"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#openAboutWindow" text="About"/>
                             </items>
                         </Menu>
                     </menus>
@@ -62,9 +84,9 @@
         </Pane>
     </children>
     <columnConstraints>
-        <ColumnConstraints />
+        <ColumnConstraints/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints />
+        <RowConstraints/>
     </rowConstraints>
 </GridPane>

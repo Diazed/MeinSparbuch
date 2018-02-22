@@ -1,9 +1,13 @@
 package main.windows.addcost;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import main.model.Cost;
+import main.windows.Windows;
 import main.windows.mainwindow.MainWindow;
 
 public class AddCost extends MainWindow {
@@ -11,9 +15,19 @@ public class AddCost extends MainWindow {
     public Button abortButton;
     public TextField costIdentifierInput;
     public TextField costAmountInput;
+    public RadioButton isIncome;
+    public RadioButton isOutcome;
 
-    public void abortAddingCost(ActionEvent event){
-        stageFactory.loadPassbookList();
+    public ToggleGroup toggleGroup = new ToggleGroup();
+
+    @FXML
+    void initialize() {
+
+        isIncome.setToggleGroup(toggleGroup);
+        isOutcome.setToggleGroup(toggleGroup);
+
+        isIncome.isSelected();
+
     }
 
     public void addNewCost(ActionEvent event) {
@@ -25,11 +39,27 @@ public class AddCost extends MainWindow {
             amount = stringToDouble(amountInput);
             if (amount != null) {
                 if (passbook != null) {
-                    Cost cost = new Cost(passbook.getCosts().size(), false, nameInput, "" + amount);
+
+                    Cost cost = new Cost(passbook.getCosts().size(), false, nameInput, "");
+
+                    if (isOutcome.isSelected()){
+                        if (amount >= 0){
+                            amount = amount * -1;
+                        }
+                        cost.setCostIsIncome(false);
+                    } else if (isIncome.isSelected()){
+                        if (amount < 0){
+                            amount = amount * -1;
+                        }
+                        cost.setCostIsIncome(true);
+                    } else {
+                        showError("Keine Angeben zum Typ.");
+                    }
+                    cost.setAmount("" + amount);
                     passbook.getCosts().add(cost);
                     costAmountInput.setText("");
                     costIdentifierInput.setText("");
-                    stageFactory.loadPassbookList();
+                    stageFactory.load(Windows.PASSBOOKLIST);
                 } else {
                     showError("Kein Sparbuch geöffnet!\nErstellen Sie ein neues oder önnen sie ein vorhandenes");
                 }

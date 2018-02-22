@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,7 +17,7 @@
 <GridPane alignment="center" hgap="10" prefHeight="550.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.windows.addcost.AddCost">
 
 
-    
+
     <children>
         <Pane prefHeight="550.0" prefWidth="400.0" GridPane.columnIndex="1">
          <children>
@@ -42,14 +43,19 @@
                              <MenuItem fx:id="saveBtn" disable="true" mnemonicParsing="false" onAction="#savePassbook" text="Speichern" />
                          </items>
                      </Menu>
+                     <Menu mnemonicParsing="false" text="About">
+                         <items>
+                             <MenuItem mnemonicParsing="false" onAction="#openAboutWindow" text="About" />
+                         </items>
+                     </Menu>
                  </menus>
              </MenuBar>
 
             <Button defaultButton="true" layoutX="195.0" layoutY="486.0" mnemonicParsing="false" onAction="#addNewCost" prefHeight="50.0" prefWidth="180.0" text="Hinzufügen" />
-            <Button fx:id="abortButton" cancelButton="true" layoutX="7.0" layoutY="486.0" mnemonicParsing="false" onAction="#abortAddingCost" prefHeight="50.0" prefWidth="180.0" text="Abbrechen" />
+            <Button fx:id="abortButton" cancelButton="true" layoutX="7.0" layoutY="486.0" mnemonicParsing="false" onAction="#abort" prefHeight="50.0" prefWidth="180.0" text="Abbrechen" />
             <TextField fx:id="costIdentifierInput" layoutX="195.0" layoutY="403.0" prefHeight="25.0" prefWidth="180.0" />
-            <TextField fx:id="costAmountInput" layoutX="195.0" layoutY="434.0" prefHeight="25.0" prefWidth="180.0" />
-            <Label layoutX="72.0" layoutY="136.0" text="Neue Ausgabe hinzufügen">
+            <TextField fx:id="costAmountInput" layoutX="195.0" layoutY="434.0" prefHeight="25.0" prefWidth="165.0" />
+            <Label layoutX="72.0" layoutY="136.0" prefHeight="75.0" prefWidth="232.0" text="Eine neue Einnahme oder Ausgabe hinzufügen" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>
@@ -64,6 +70,13 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label layoutX="362.0" layoutY="437.0" text="€">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="isIncome" layoutX="195.0" layoutY="376.0" mnemonicParsing="false" selected="true" text="Einnahmen" />
+            <RadioButton fx:id="isOutcome" layoutX="301.0" layoutY="376.0" mnemonicParsing="false" text="Ausgaben" />
          </children></Pane>
     </children>
    <columnConstraints>

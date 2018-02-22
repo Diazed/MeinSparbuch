@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import main.PassbookService;
 import main.StageFactory;
 import main.model.Passbook;
+import main.windows.Windows;
 
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class MainWindow {
     }
 
     public void createPassbook(ActionEvent event) {
-        stageFactory.loadPassbookCreation();
+        stageFactory.load(Windows.PASSBOOKCREATION);
     }
 
     public void savePassbookAt(ActionEvent event) {
@@ -37,8 +38,12 @@ public class MainWindow {
 
     public void openPassbook(ActionEvent event) {
         passbook = passbookService.openPassbook();
-        stageFactory.loadPassbookList();
+        stageFactory.load(Windows.PASSBOOKLIST);
         clearStatus();
+    }
+
+    public void openAboutWindow(ActionEvent event){
+        stageFactory.load(Windows.ABOUT);
     }
 
     protected void setSaveBtnStatus(){
@@ -49,6 +54,14 @@ public class MainWindow {
         }
         if (passbook != null)
             saveAtBtn.setDisable(false);
+    }
+
+    public void abort(ActionEvent event) {
+        if (passbook == null){
+            stageFactory.load(Windows.WELCOME);
+        } else {
+            stageFactory.load(Windows.PASSBOOKLIST);
+        }
     }
 
     protected Double stringToDouble(String stringToParse) {

@@ -2,6 +2,7 @@ package main.windows.editincome;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import main.windows.Windows;
 import main.windows.mainwindow.MainWindow;
 
 
@@ -14,14 +15,10 @@ public class EditIncome extends MainWindow {
         Double newValue = stringToDouble(editIncomeInput.getText());
         if (newValue != null){
             passbook.setMonthlyIncome(newValue);
-            stageFactory.loadPassbookList();
+            stageFactory.load(Windows.PASSBOOKLIST);
         }
         editIncomeInput.setText("");
 
-    }
-
-    public void abort(ActionEvent event){
-        stageFactory.loadPassbookList();
     }
 
 }

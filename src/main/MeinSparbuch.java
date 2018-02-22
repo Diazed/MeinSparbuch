@@ -1,13 +1,9 @@
 package main;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import main.windows.Windows;
 
 public class MeinSparbuch extends Application {
 
@@ -20,7 +16,7 @@ public class MeinSparbuch extends Application {
         primaryStage.setResizable(false);
         StageFactory.setPrimaryStage(primaryStage);
         StageFactory stageFactory = new StageFactory();
-        stageFactory.loadWelcome();
+        stageFactory.load(Windows.WELCOME);
         primaryStage.show();
     }
 

@@ -13,6 +13,8 @@ public class Cost {
   private String name;
   @XmlElement
   private String amount;
+  @XmlElement
+  private boolean costIsIncome;
 
   public Cost(){}
 
@@ -21,6 +23,15 @@ public class Cost {
     this.paid = paid;
     this.name = name;
     this.amount = amount;
+  }
+
+  @XmlTransient
+  public boolean isCostIsIncome() {
+    return costIsIncome;
+  }
+
+  public void setCostIsIncome(boolean costIsIncome) {
+    this.costIsIncome = costIsIncome;
   }
 
   @XmlTransient

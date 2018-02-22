@@ -3,6 +3,7 @@ package main.windows.passbookcreation;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import main.model.Passbook;
+import main.windows.Windows;
 import main.windows.mainwindow.MainWindow;
 
 public class PassbookCreationController extends MainWindow {
@@ -20,19 +21,12 @@ public class PassbookCreationController extends MainWindow {
                 saveAtBtn.setDisable(false);
                 saveBtn.setDisable(true);
                 clearStatus();
-                stageFactory.loadPassbookList();
+                stageFactory.load(Windows.PASSBOOKLIST);
 
             }
         }
     }
 
-    public void abort(ActionEvent event) {
-        if (passbook == null) {
-            stageFactory.loadWelcome();
-        } else {
-            stageFactory.loadPassbookList();
-        }
-        clearStatus();
-    }
+
 
 }

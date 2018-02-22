@@ -46,25 +46,27 @@
                                 <TableColumn fx:id="costAmountCol" minWidth="0.0" prefWidth="102.0" text="Kosten" />
                             </columns>
                         </TableView>
-                        <Button defaultButton="true" layoutX="316.0" layoutY="347.0" mnemonicParsing="false" onAction="#openNewCostStage" prefHeight="60.0" prefWidth="65.0" text="+" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font></Button>
+                        <Button fx:id="addCostButton" defaultButton="true" layoutX="316.0" layoutY="347.0" mnemonicParsing="false" onAction="#openNewCostStage" prefHeight="60.0" prefWidth="65.0" text="+" textAlignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Button>
                         <Label layoutX="24.0" layoutY="14.0" prefHeight="17.0" prefWidth="200.0" text="Ausgaben:">
                             <font>
                                 <Font size="15.0" />
-                            </font></Label>
+                            </font>
+                        </Label>
                         <Label layoutX="25.0" layoutY="353.0" prefHeight="17.0" prefWidth="31.0" text="Von" textAlignment="RIGHT" />
-                  <Label fx:id="income" layoutX="79.0" layoutY="353.0" prefHeight="17.0" prefWidth="228.0">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="savings" layoutX="76.0" layoutY="383.0" prefHeight="17.0" prefWidth="228.0">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Label>
+                        <Label fx:id="income" layoutX="79.0" layoutY="353.0" prefHeight="17.0" prefWidth="228.0">
+                            <font>
+                                <Font name="System Italic" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="savings" layoutX="76.0" layoutY="383.0" prefHeight="17.0" prefWidth="228.0">
+                            <font>
+                                <Font name="System Italic" size="13.0" />
+                            </font>
+                        </Label>
                     </children>
                 </Pane>
                 <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="400.0">
@@ -77,11 +79,16 @@
                                 <MenuItem fx:id="saveBtn" disable="true" mnemonicParsing="false" onAction="#savePassbook" text="Speichern" />
                             </items>
                         </Menu>
-                  <Menu mnemonicParsing="false" text="Sparbuch">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="editieren" onAction="#editPassbook"/>
-                    </items>
-                  </Menu>
+                        <Menu mnemonicParsing="false" text="Sparbuch">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#editPassbook" text="Editieren" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#openAboutWindow" text="About" />
+                            </items>
+                        </Menu>
                     </menus>
                 </MenuBar>
             </children>

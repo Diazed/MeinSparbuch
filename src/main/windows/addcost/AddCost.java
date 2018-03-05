@@ -23,10 +23,10 @@ public class AddCost extends MainWindow {
     @FXML
     void initialize() {
 
-        isIncome.setToggleGroup(toggleGroup);
         isOutcome.setToggleGroup(toggleGroup);
+        isIncome.setToggleGroup(toggleGroup);
 
-        isIncome.isSelected();
+        isOutcome.isSelected();
 
     }
 
